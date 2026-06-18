@@ -1,194 +1,333 @@
-# Multilingual Voice Translation Engine
+# AI Voice Translator Pro 🎙️🌍
 
-Enterprise-grade voice translator with instant transcription (0.3s), blazing-fast translation, and natural speech output. Supports 50+ languages with specialized Telugu optimization. Built with Whisper small, NLLB-200, React, FastAPI. Real-time streaming.
+Real-time multilingual voice translation application with instant transcription, neural translation, and natural speech synthesis. Built for speed, accuracy, and seamless user experience.
 
 ![License](https://img.shields.io/badge/license-MIT-blue.svg)
 ![Python](https://img.shields.io/badge/python-3.10+-blue.svg)
 ![React](https://img.shields.io/badge/react-19.0-blue.svg)
+![FastAPI](https://img.shields.io/badge/FastAPI-0.100+-green.svg)
 
-## ✨ Key Features
+## ✨ Features
 
-- **⚡ Ultra-Fast Performance**: 0.3s partial transcription, ~3s end-to-end processing
-- **🌍 50+ Languages**: Including Telugu, Tamil, Kannada, Malayalam with native TTS
-- **🎙️ Real-Time Streaming**: Text appears as you speak with instant updates
-- **🔊 Natural Speech Output**: Optimized Telugu voice (0.65 rate), quality-based voice selection
-- **🧠 Advanced AI Models**: Whisper small, NLLB-200 with greedy decoding
-- **💪 Production-Ready**: Parallel processing, caching, optimized for CPU
+- **⚡ Lightning Fast**: 0.3s partial transcription, ~3s end-to-end pipeline
+- **🌍 50+ Languages**: Comprehensive support including Indian languages (Telugu, Tamil, Hindi, etc.)
+- **🎙️ Real-Time Processing**: Live transcription with WebSocket streaming
+- **🔊 Natural Voice Output**: Browser-native TTS with optimized voice selection
+- **🧠 State-of-the-Art AI**: Whisper (faster-whisper), NLLB-200, Silero VAD
+- **💾 History Management**: SQLite-based translation history with export capabilities
+- **⚙️ Configurable**: Adjustable models, VAD thresholds, and performance settings
+- **🎯 Production Ready**: Rate limiting, logging, error handling, and middleware
 
-## 🚀 Performance Metrics
+## 🚀 Quick Start
 
-| Metric | Time |
-|--------|------|
-| Partial Transcription | 0.3s |
-| Silence Detection | 1.0s |
-| Final Transcription | 0.5-1s |
-| Translation | 0.3-0.8s |
-| TTS Response | 0.3s |
-| **Total (Speaking → Audio)** | **~3 seconds** |
+### Prerequisites
+- Python 3.10 or higher
+- Node.js 18 or higher
+- 8GB RAM minimum (16GB recommended)
+- Windows, Linux, or macOS
 
-## 🏗️ Architecture
+### Installation
 
-### Backend
-- **Framework**: FastAPI + Python 3.10+
-- **Speech Recognition**: Whisper small (faster-whisper, int8, beam_size=1)
-- **Translation**: NLLB-200 distilled 600M (greedy decoding, max_tokens=200)
-- **VAD**: Silero VAD with energy gating
-- **Streaming**: Native WebSocket with 3 parallel workers
-
-### Frontend
-- **Framework**: React 19 + TypeScript + Vite
-- **Styling**: Tailwind CSS v4
-- **State**: Zustand
-- **Animation**: Framer Motion
-- **TTS**: Browser SpeechSynthesis API
-
-## 📋 Prerequisites
-
-- Python 3.10+
-- Node.js 18+
-- 8GB RAM minimum
-- Optional: NVIDIA GPU with CUDA 11.8+ (for faster processing)
-
-## 🔧 Installation
-
-### Method 1: Automated Install (Windows)
-
-```powershell
-# Run as Administrator
-.\install.ps1
+**1. Clone the repository**
+```bash
+git clone <repository-url>
+cd ai-voice-translator-pro
 ```
 
-### Method 2: Manual Install
-
-**Backend:**
+**2. Backend Setup**
 ```bash
 cd backend
 python -m venv venv
-venv\Scripts\activate  # Windows
-# source venv/bin/activate  # Linux/Mac
+
+# Windows
+venv\Scripts\activate
+
+# Linux/Mac
+source venv/bin/activate
+
 pip install -r requirements.txt
 ```
 
-**Frontend:**
+**3. Frontend Setup**
 ```bash
 cd frontend
 npm install
 ```
 
-### Method 3: Docker
+### Running the Application
 
-```bash
-docker-compose up -d --build
-```
-
-## 🎯 Running the Application
-
-**Backend:**
+**Start Backend (Terminal 1)**
 ```bash
 cd backend
-venv\Scripts\activate
-python -m uvicorn main:app --host 0.0.0.0 --port 8000
+venv\Scripts\activate  # Windows
+# source venv/bin/activate  # Linux/Mac
+python -m uvicorn main:app --host 0.0.0.0 --port 8000 --reload
 ```
 
-**Frontend:**
+**Start Frontend (Terminal 2)**
 ```bash
 cd frontend
 npm run dev
 ```
 
-**Access**: http://localhost:5173
+**Access the Application**
+- Frontend: http://localhost:5173
+- Backend API: http://localhost:8000
+- API Documentation: http://localhost:8000/docs
 
-## 🌐 Supported Languages (50+)
+## 🏗️ Architecture
 
-English, Spanish, French, German, Italian, Portuguese, Russian, Chinese, Japanese, Korean, Arabic, Hindi, **Telugu**, **Tamil**, **Kannada**, **Malayalam**, Marathi, Bengali, Gujarati, Punjabi, Urdu, Turkish, Dutch, Polish, Swedish, Norwegian, Danish, Finnish, Czech, Slovak, Romanian, Hungarian, Ukrainian, Bulgarian, Croatian, Serbian, Greek, Hebrew, Persian, Thai, Vietnamese, Indonesian, Malay, Swahili, Afrikaans, Catalan, Lithuanian, Latvian, Estonian
+### Project Structure
+```
+ai-voice-translator-pro/
+├── backend/
+│   ├── api/              # REST API endpoints
+│   ├── config/           # Configuration management
+│   ├── database/         # SQLite models & connection
+│   ├── middleware/       # Logging & rate limiting
+│   ├── models/           # Downloaded AI models cache
+│   ├── services/         # Business logic layer
+│   ├── speech/           # Whisper & VAD processing
+│   ├── translation/      # NLLB & Marian engines
+│   ├── tts/              # Text-to-speech engines
+│   ├── utils/            # Helper functions
+│   ├── websocket/        # WebSocket handlers
+│   ├── main.py           # FastAPI application
+│   └── requirements.txt  # Python dependencies
+└── frontend/
+    ├── public/           # Static assets
+    ├── src/
+    │   ├── components/   # React components
+    │   ├── hooks/        # Custom React hooks
+    │   ├── services/     # API & WebSocket clients
+    │   ├── store/        # State management (Zustand)
+    │   ├── types/        # TypeScript definitions
+    │   └── App.tsx       # Main application
+    └── package.json      # Node dependencies
+```
 
-## ⚙️ Optimizations Applied
+### Technology Stack
 
-### Speed Optimizations
-- **Greedy Decoding**: beam_size=1 for Whisper & NLLB (3-5x faster)
-- **Partial Processing**: Only last 1.5s of audio processed for real-time updates
-- **Parallel Workers**: 3 ThreadPoolExecutor workers for concurrent processing
-- **Reduced Tokens**: max_new_tokens=200 (48% reduction)
-- **CPU Threading**: MKL/OMP optimized with 2 threads
-- **Translation Cache**: 256-entry LRU cache with MD5 keys
+**Backend**
+- **Framework**: FastAPI (async Python web framework)
+- **Speech Recognition**: faster-whisper (optimized Whisper implementation)
+- **Translation**: NLLB-200 (Meta's No Language Left Behind), Marian MT
+- **VAD**: Silero Voice Activity Detection
+- **Database**: SQLite with SQLAlchemy ORM
+- **Streaming**: WebSocket for real-time communication
 
-### Quality Optimizations
-- **VAD-Gated Buffering**: Energy gate (0.002) + Silero VAD filtering
-- **Hallucination Filter**: Common phrase detection and repetition checking
-- **Sentence Chunking**: Smart splitting for utterances >400 chars
-- **NLLB Cleaning**: Automatic punctuation and capitalization fixes
+**Frontend**
+- **Framework**: React 19 with TypeScript
+- **Build Tool**: Vite
+- **Styling**: Tailwind CSS v4
+- **State Management**: Zustand
+- **Animation**: Framer Motion
+- **Audio**: Web Audio API, MediaRecorder, SpeechSynthesis
 
-## 🔧 Configuration
+## 📋 Core Components
 
-Edit `backend/.env`:
+### Backend Services
+
+**Speech Service** (`services/speech_service.py`)
+- Audio preprocessing and VAD
+- Whisper model integration
+- Partial and final transcription handling
+
+**Translation Service** (`services/translation_service.py`)
+- NLLB-200 neural translation
+- Marian model fallback
+- Translation caching (LRU)
+- Language detection
+
+**TTS Service** (`services/tts_service.py`)
+- Piper TTS integration
+- Coqui TTS support
+- Audio format conversion
+
+**History Service** (`services/history_service.py`)
+- Translation history persistence
+- Search and filtering
+- Export functionality (JSON, CSV)
+
+### API Endpoints
+
+| Endpoint | Method | Description |
+|----------|--------|-------------|
+| `/api/health` | GET | Health check |
+| `/api/speech/transcribe` | POST | Transcribe audio |
+| `/api/translation/translate` | POST | Translate text |
+| `/api/tts/synthesize` | POST | Generate speech |
+| `/api/history` | GET/POST | Manage history |
+| `/api/export` | POST | Export translations |
+| `/api/settings` | GET/PUT | App settings |
+| `/ws/speech` | WS | Real-time speech streaming |
+
+## ⚙️ Configuration
+
+### Backend Configuration
+
+Create/edit `backend/.env`:
 
 ```env
 # Model Settings
-WHISPER_MODEL=small
-WHISPER_BEAM_SIZE=5
-TRANSLATION_MODEL=nllb-200
+WHISPER_MODEL=small                    # tiny, base, small, medium, large
+WHISPER_COMPUTE_TYPE=int8              # int8, float16, float32
+WHISPER_BEAM_SIZE=1                    # 1 for greedy (fastest)
+TRANSLATION_MODEL=nllb-200-distilled-600M
 
 # Audio Settings
 SAMPLE_RATE=16000
-VAD_THRESHOLD=0.5
+CHUNK_SIZE=1024
+VAD_THRESHOLD=0.5                      # 0.0-1.0
+VAD_MIN_SPEECH_DURATION_MS=250
+VAD_MIN_SILENCE_DURATION_MS=1000
 
 # Performance
-WORKERS=3
+MAX_WORKERS=3                          # Parallel processing threads
+CACHE_SIZE=256                         # Translation cache entries
+MAX_AUDIO_LENGTH_SECONDS=60
+
+# Database
+DATABASE_URL=sqlite:///./data/translator.db
+
+# Server
+CORS_ORIGINS=["http://localhost:5173"]
+LOG_LEVEL=INFO
 ```
+
+### Frontend Configuration
+
+Edit `frontend/src/config/`:
+- API endpoint URLs
+- WebSocket connection settings
+- Audio recording parameters
+- UI preferences
+
+## 🌐 Supported Languages
+
+**Major Languages**: English, Spanish, French, German, Italian, Portuguese, Russian, Chinese (Simplified/Traditional), Japanese, Korean, Arabic
+
+**Indian Languages**: Hindi, Telugu, Tamil, Kannada, Malayalam, Marathi, Bengali, Gujarati, Punjabi, Urdu
+
+**European Languages**: Dutch, Polish, Swedish, Norwegian, Danish, Finnish, Czech, Slovak, Romanian, Hungarian, Ukrainian, Bulgarian, Croatian, Serbian, Greek
+
+**Other Languages**: Turkish, Hebrew, Persian, Thai, Vietnamese, Indonesian, Malay, Swahili, Afrikaans, Catalan, Lithuanian, Latvian, Estonian
+
+**Total**: 50+ languages supported
+
+## 🎯 Performance Optimizations
+
+### Speed Enhancements
+- **Greedy Decoding**: beam_size=1 (3-5x faster than beam search)
+- **INT8 Quantization**: Reduced model size, faster inference
+- **Partial Processing**: Process only recent audio (1.5s) for live updates
+- **Parallel Workers**: 3 concurrent threads for transcription/translation
+- **LRU Caching**: 256-entry translation cache with MD5 keys
+- **Token Limiting**: max_new_tokens=200 for faster generation
+
+### Quality Improvements
+- **VAD Gating**: Energy threshold + Silero VAD filtering
+- **Hallucination Detection**: Filter common Whisper artifacts
+- **Smart Chunking**: Split long text (>400 chars) intelligently
+- **Post-processing**: Punctuation and capitalization fixes
 
 ## 📊 System Requirements
 
 | Component | Minimum | Recommended |
 |-----------|---------|-------------|
-| RAM | 8GB | 16GB+ |
-| CPU | 4 cores | 8+ cores |
-| Storage | 5GB | 10GB+ |
-| GPU | None (CPU-only) | NVIDIA GTX 1060+ |
+| **CPU** | 4 cores | 8+ cores (Intel i7/AMD Ryzen 7) |
+| **RAM** | 8GB | 16GB+ |
+| **Storage** | 5GB free | 10GB+ SSD |
+| **GPU** | None (CPU-only) | NVIDIA GTX 1060+ (CUDA 11.8+) |
+| **Network** | N/A | Low latency for API calls |
+| **OS** | Windows 10, Ubuntu 20.04, macOS 11+ | Latest stable versions |
 
-## 🎨 Features in Detail
+## 🧪 Testing
 
-### Real-Time Transcription
-- Partial transcripts every 0.3s while speaking
-- Non-blocking fire-and-forget processing
-- Smooth UI updates with fade animations
+```bash
+# Backend tests
+cd backend
+pytest tests/ -v
 
-### Telugu Voice Optimization
-- Native voice prioritization (Microsoft Heera)
-- Slower speech rate (0.65) for clarity
-- Longer sentence pauses (300ms)
-- Romanization support for pronunciation hints
+# Frontend tests
+cd frontend
+npm run test
+```
 
-### Translation Pipeline
-- Cache-first lookup (MD5-based keys)
-- Fallback to Marian models when available
-- Language pair blocklist for unsupported combinations
-- Automatic chunking for long sentences
+## 📦 Building for Production
+
+**Frontend Build**
+```bash
+cd frontend
+npm run build
+# Output in frontend/dist/
+```
+
+**Backend Deployment**
+```bash
+cd backend
+gunicorn main:app --workers 4 --worker-class uvicorn.workers.UvicornWorker --bind 0.0.0.0:8000
+```
+
+## 🐛 Troubleshooting
+
+**Models not downloading**
+- Check internet connection
+- Verify HuggingFace access (some models require authentication)
+- Clear cache in `backend/models/` and retry
+
+**Audio not recording**
+- Grant microphone permissions in browser
+- Check browser compatibility (Chrome/Edge recommended)
+- Verify audio input device in system settings
+
+**Translation errors**
+- Check language pair support in NLLB-200
+- Verify backend logs in `backend/logs/app.log`
+- Clear translation cache
+
+**Performance issues**
+- Reduce WHISPER_MODEL to "tiny" or "base"
+- Decrease MAX_WORKERS
+- Enable GPU if available
+- Close other heavy applications
 
 ## 🤝 Contributing
 
-Contributions welcome! Please:
+We welcome contributions! Please:
+
 1. Fork the repository
-2. Create a feature branch
-3. Commit your changes
-4. Push to the branch
+2. Create a feature branch (`git checkout -b feature/amazing-feature`)
+3. Commit your changes (`git commit -m 'Add amazing feature'`)
+4. Push to the branch (`git push origin feature/amazing-feature`)
 5. Open a Pull Request
+
+**Development Guidelines**
+- Follow PEP 8 for Python code
+- Use ESLint/Prettier for TypeScript
+- Add tests for new features
+- Update documentation
 
 ## 📝 License
 
-MIT License - see LICENSE file for details
+MIT License - see [LICENSE](LICENSE) file for details.
 
 ## 🙏 Acknowledgments
 
-- **OpenAI Whisper** - Speech recognition
-- **Meta NLLB-200** - Neural translation
-- **Silero VAD** - Voice activity detection
-- **FastAPI** - Backend framework
-- **React Team** - Frontend framework
+- [OpenAI Whisper](https://github.com/openai/whisper) - Speech recognition models
+- [Meta NLLB](https://github.com/facebookresearch/fairseq/tree/nllb) - Neural translation
+- [faster-whisper](https://github.com/guillaumekln/faster-whisper) - Optimized Whisper implementation
+- [Silero VAD](https://github.com/snakers4/silero-vad) - Voice activity detection
+- [FastAPI](https://fastapi.tiangolo.com/) - Modern Python web framework
+- [React](https://react.dev/) - UI library
 
-## 📧 Contact
+## 📧 Support
 
-For issues and questions, please open a GitHub issue.
+For bugs, features, or questions:
+- Open an [Issue](../../issues)
+- Check [Discussions](../../discussions)
+- Review [Documentation](../../wiki)
 
 ---
 
-**Built with ❤️ for real-time multilingual communication**
+**Built with ❤️ for seamless global communication**
